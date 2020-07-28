@@ -1,0 +1,39 @@
+<div>
+  <button class="btn btn-primary m-5" (click)="getAndStorageData()">Load Data</button>
+  <button class="btn btn-danger m-5" (click)="deleteData()">Erase Data</button>
+</div>
+
+<div *ngIf="productsService.loading" class="spinner-border text-danger" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+
+<app-product *ngIf="productsService.subjectDataProducts"></app-product>
+
+<div class="card-group" *ngIf="!productsService.subjectDataProducts && !productsService.loading">
+  <div class="card">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Please Load Data</h5>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
+        This content is a little bit longer.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+  <div class="card">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Please Load Data</h5>
+      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+  <div class="card">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Please Load Data</h5>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
+        This card has even longer content than the first to show that equal height action.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+</div>

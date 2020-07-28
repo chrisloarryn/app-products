@@ -1,0 +1,28 @@
+.myCustomClass {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+  align-items: center;
+}
+
+.csu {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-direction: column !important;
+}
+
+.img-responsive {
+  background-color: black;
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 999px;
+  /* margin-right: 10px; */
+  margin: -40px 10px 2px 0px;
+}
+
+.myButton {
+  border: 0.5px solid #ccc;
+  margin-top: -40px;
+}

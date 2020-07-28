@@ -1,0 +1,22 @@
+.main-container-2 {
+  display: flex !important;
+  justify-content: center !important;
+  flex-direction: row !important;
+  align-items: center;
+  margin: 2px 2px 2px 2px;
+}
+
+.main-container-2 > div:last-child {
+  background-color: green !important;
+  margin-left: 3px;
+}
+
+.main-container-2 > div:first-child {
+  background-color: darkorchid !important;
+  margin-right: 3px;
+}
+
+.main-container-2 > div:nth-child(2) {
+  background-color: black !important;
+  margin-right: 3px;
+}

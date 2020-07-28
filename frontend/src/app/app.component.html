@@ -1,0 +1,37 @@
+<!-- <ul>
+  <li class="text" *ngFor="let chat of chats | async">
+    {{chat.message}}
+  </li>
+</ul>
+ -->
+
+<div class="container main-container">
+  <!-- Image and text -->
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <img src="https://getbootstrap.com/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30"
+           class="d-inline-block align-top" alt="">
+      {{ productsService.userLoggedIn.name &&
+    productsService.userLoggedIn.name
+      .split(' ')
+      .slice(0, 1)}}
+    </a>
+
+    <div class="col-md-12 text-right myCustomClass" *ngIf="productsService.userLoggedIn.uId">
+      <img class="img-responsive" src={{productsService.userLoggedIn.image}} alt={{productsService.userLoggedIn.uId}}
+           style="background-color: black; width: 25px; height: 25px;">
+
+      <button type="button" class="btn btn-danger myButton" (click)="productsService.logout()">
+        Sign out
+      </button>
+    </div>
+  </nav>
+  <h1>Products</h1>
+
+  <app-login *ngIf="!productsService.userLoggedIn.uId"></app-login>
+
+  <div *ngIf="productsService.userLoggedIn.uId">
+    <app-products class="csu"></app-products>
+  </div>
+
+</div>
