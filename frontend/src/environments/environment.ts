@@ -15,7 +15,7 @@ export const environment = {
     measurementId: "G-E3QPFZ4GS8",
   },
   moviesApi: {
-    apiUrl: "http://www.omdbapi.com/?t=dinosaurio&",
+    apiUrl: "http://www.omdbapi.com/?t=SEARCH_TEXT&apikey=API_KEY",
     apiKey: "4b1d45a2",
   },
 };

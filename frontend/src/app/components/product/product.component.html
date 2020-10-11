@@ -1,12 +1,31 @@
-<div class="main-container-2">
-  <div *ngFor="let item of productsService.subjectDataProducts" class="card text-white bg-info mb-3"
-       style="max-width: 18rem; height: 15rem;">
-    <div class="card-header">{{item.user.username}}</div>
+<div class="main-container-2" *ngIf="productsService.dataMovie.getValue()">
+  <div
+    *ngFor="let item of productsService.dataMovie.getValue()"
+    class="card text-white bg-info mb-3"
+    style="max-width: 18rem"
+  >
+    <div class="card-header">
+      {{ item.Title || "Movie Not Found" }} [{{ item.Year || "x" }}]
+    </div>
     <div class="card-body">
-      <h5 class="card-title">{{item.stations.length === 1 ? 'Only one station' : 'More than one'}}</h5>
-      <p class="card-text" *ngFor="let station of item.stations">({{station.name}}) </p>
+      <h5 class="card-title">
+        {{ item?.Title || "-" }}
+      </h5>
+      <p class="card-text">{{ item.Plot || "-" }}</p>
     </div>
   </div>
-
 </div>
 
+<div class="main-container-2" *ngIf="!productsService.dataMovie.getValue()">
+  <div class="card text-white bg-info mb-3" style="max-width: 18rem">
+    <div class="card-header">
+      {{ "Please Type to Find Movies" }} [{{ "x" }}]
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">
+        {{ "-" }}
+      </h5>
+      <p class="card-text">{{ "-" }}</p>
+    </div>
+  </div>
+</div>

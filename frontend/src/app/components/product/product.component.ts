@@ -1,18 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {ProductsService} from "../../providers/products.service";
+import { Component, OnInit } from "@angular/core";
+import { ProductsService } from "../../providers/products.service";
 
 @Component({
-  selector: 'app-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss']
+  selector: "app-product",
+  templateUrl: "./product.component.html",
+  styleUrls: ["./product.component.scss"],
 })
 export class ProductComponent implements OnInit {
-
   constructor(public productsService: ProductsService) {
+    console.log(productsService.dataMovie.getValue());
   }
 
-  ngOnInit(): void {
-
-  }
-
+  ngOnInit(): void {}
 }
