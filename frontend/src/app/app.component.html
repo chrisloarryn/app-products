@@ -9,19 +9,35 @@
   <!-- Image and text -->
   <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand" href="#">
-      <img src="https://getbootstrap.com/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30"
-           class="d-inline-block align-top" alt="">
-      {{ productsService.userLoggedIn.name &&
-    productsService.userLoggedIn.name
-      .split(' ')
-      .slice(0, 1)}}
+      <img
+        src="https://getbootstrap.com/docs/4.4/assets/brand/bootstrap-solid.svg"
+        width="30"
+        height="30"
+        class="d-inline-block align-top"
+        alt=""
+      />
+      {{
+        productsService.userLoggedIn.name &&
+          productsService.userLoggedIn.name.split(" ").slice(0, 1)
+      }}
     </a>
 
-    <div class="col-md-12 text-right myCustomClass" *ngIf="productsService.userLoggedIn.uId">
-      <img class="img-responsive" src={{productsService.userLoggedIn.image}} alt={{productsService.userLoggedIn.uId}}
-           style="background-color: black; width: 25px; height: 25px;">
+    <div
+      class="col-md-12 text-right myCustomClass"
+      *ngIf="productsService.userLoggedIn.uId"
+    >
+      <img
+        class="img-responsive"
+        src="{{ productsService.userLoggedIn.image }}"
+        alt="{{ productsService.userLoggedIn.uId }}"
+        style="background-color: black; width: 25px; height: 25px"
+      />
 
-      <button type="button" class="btn btn-danger myButton" (click)="productsService.logout()">
+      <button
+        type="button"
+        class="btn btn-danger myButton"
+        (click)="productsService.logout()"
+      >
         Sign out
       </button>
     </div>
@@ -31,7 +47,17 @@
   <app-login *ngIf="!productsService.userLoggedIn.uId"></app-login>
 
   <div *ngIf="productsService.userLoggedIn.uId">
+    <form class="form-inline my-2 my-lg-0">
+      <input
+        class="form-control mr-sm-2"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+      />
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+        Search
+      </button>
+    </form>
     <app-products class="csu"></app-products>
   </div>
-
 </div>
