@@ -12,8 +12,12 @@ export const environment = {
     storageBucket: "firechat-cdb79.appspot.com",
     messagingSenderId: "413767317626",
     appId: "1:413767317626:web:7224ac779e5e8dc394e3c3",
-    measurementId: "G-E3QPFZ4GS8"
-  }
+    measurementId: "G-E3QPFZ4GS8",
+  },
+  moviesApi: {
+    apiUrl: "http://www.omdbapi.com/?t=dinosaurio&",
+    apiKey: "4b1d45a2",
+  },
 };
 
 /*
