@@ -115,8 +115,8 @@ export class ProductsService {
       item.createdAt = new Date();
       console.log("ddd", item);
       // await this.itemsCollection.add(item);
-      this.itemsCollection.add(item).then((_) => {
-        // console.log(_);
+      this.itemsCollection.add(item).then((res) => {
+        // console.log(res);
       });
     } else {
       console.log("no movie received");
