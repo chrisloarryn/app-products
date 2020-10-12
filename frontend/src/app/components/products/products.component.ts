@@ -14,7 +14,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.productsService.loadMovies().then((e) => {
       e.subscribe((data) => {
-        console.log("data loaded");
+        console.log("data loaded", data);
       });
     });
   }

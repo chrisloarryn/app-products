@@ -23,6 +23,7 @@
     "angularfire2": "^5.4.2",
     "axios": "^0.19.2",
     "firebase": "^7.9.3",
+    "ngx-beautiful-charts": "^2.0.7",
     "rxjs": "~6.5.4",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
