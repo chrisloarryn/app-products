@@ -1,3 +1,4 @@
+import { Movie } from "./../interfaces/movies.interface";
 import { Injectable } from "@angular/core";
 import { map } from "rxjs/operators";
 import {
@@ -9,7 +10,7 @@ import * as firebase from "firebase/app";
 import Axios from "axios";
 import { BehaviorSubject } from "rxjs";
 import { environment } from "./../../environments/environment";
-
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 @Injectable({
   providedIn: "root",
 })
@@ -22,15 +23,19 @@ export class ProductsService {
   public loading = false;
   public error = [];
   public dataMovie = new BehaviorSubject(undefined);
+  private httpOptions = {};
+  private response: any;
+  public itemsCollection: AngularFirestoreCollection<Movie>;
+  public movies: Movie[] = [];
 
-  constructor(private afs: AngularFirestore, public afAuth: AngularFireAuth) {
+  constructor(
+    private http: HttpClient,
+    private afs: AngularFirestore,
+    public afAuth: AngularFireAuth
+  ) {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
-        this.checkToken(user).then((res) => {
-          if (res) {
-            Object.assign(this.iUser, res);
-          }
-        });
+        Object.assign(this.iUser, user);
         console.log("uuuuuser", this.iUser);
       } else {
         return;
@@ -38,6 +43,8 @@ export class ProductsService {
       this.userLoggedIn.name = user.displayName;
       this.userLoggedIn.uId = user.uid;
       this.userLoggedIn.image = user.photoURL;
+      this.loadMovies();
+      // this.itemsCollection = this.afs.collection<Movie>("movies");
     });
   }
 
@@ -49,29 +56,12 @@ export class ProductsService {
     return this.subjectProducts.getValue();
   }
 
-  async checkToken(params: any): Promise<any> {
-    if (!params) {
-      return;
-    }
+  set subjectDataMovie(value) {
+    this.dataMovie.next(value);
+  }
 
-    this.token.next(params.ma);
-    const options = {
-      headers: {
-        Authorization: `Bearer ${params.ma}`,
-        "Content-Type": "application/json",
-      },
-    };
-    let userRequest;
-    try {
-      userRequest = await Axios.get(
-        "http://localhost:3000/api/checkToken",
-        options
-      );
-      this.backendUserResponse = true;
-    } catch (e) {
-      userRequest = null;
-    }
-    return userRequest ? userRequest.data.payload : userRequest;
+  get subjectDataMovie() {
+    return this.dataMovie.getValue();
   }
 
   login(provider?: string) {
@@ -91,6 +81,9 @@ export class ProductsService {
 
   async fetchMovie(input: string) {
     this.error = [];
+    this.httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": "application/json" }),
+    };
     // http://www.omdbapi.com/?t=SEARCH_TEXT&apikey=API_KEY
     if (!input) return;
     const { moviesApi } = environment;
@@ -100,6 +93,10 @@ export class ProductsService {
       .replace("API_KEY", moviesApi.apiKey);
     this.loading = true;
     const response = await Axios.get(urlToFetch); // .then();
+    /* this.http.get(urlToFetch, this.httpOptions).subscribe((search) => {
+      console.log("search", search);
+      if (search) this.response = search;
+    }); */
     const { data, status, statusText } = response;
     this.loading = false;
     if (data && data.Error) this.error.push({ message: data.Error });
@@ -110,6 +107,34 @@ export class ProductsService {
     sData.push(data);
     this.dataMovie.next(sData);
     // return { data: sData, status, statusText, Response, Error };
+  }
+
+  async addMovie(movie?: any) {
+    let item = this.subjectDataMovie && (await this.subjectDataMovie[0]);
+    if (item) {
+      item.createdAt = new Date();
+      console.log("ddd", item);
+      // await this.itemsCollection.add(item);
+      this.itemsCollection.add(item).then((_) => {
+        // console.log(_);
+      });
+    } else {
+      console.log("no movie received");
+    }
+  }
+
+  async loadMovies() {
+    this.itemsCollection = this.afs.collection<Movie>("movies", (ref) =>
+      ref.orderBy("createdAt", "desc")
+    );
+    return this.itemsCollection.valueChanges().pipe(
+      map((movies: Movie[]) => {
+        // console.log(movies);
+        this.movies = movies;
+        // console.log(this.movies);
+        return this.movies;
+      })
+    );
   }
 
   async fetchDataProducts() {

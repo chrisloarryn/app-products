@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ProductsService } from "../../providers/products.service";
+// import { BrowserModule } from "@angular/platform-browser";
+// import { NgxChartsModule } from "@swimlane/ngx-charts";
 
 @Component({
   selector: "app-products",
@@ -9,7 +11,13 @@ import { ProductsService } from "../../providers/products.service";
 export class ProductsComponent implements OnInit {
   constructor(public productsService: ProductsService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.productsService.loadMovies().then((e) => {
+      e.subscribe((data) => {
+        console.log("data loaded");
+      });
+    });
+  }
 
   async getAndStorageData() {
     const data = await this.productsService.fetchDataProducts();
@@ -18,5 +26,9 @@ export class ProductsComponent implements OnInit {
 
   deleteData() {
     this.productsService.dataMovie.next(null);
+  }
+
+  async saveMovie(movie?: any) {
+    this.productsService.addMovie(movie);
   }
 }

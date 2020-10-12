@@ -1,7 +1,5 @@
 <div>
-  <button class="btn btn-primary m-5" (click)="getAndStorageData()">
-    Save Data
-  </button>
+  <button class="btn btn-primary m-5" (click)="saveMovie()">Save Data</button>
   <button class="btn btn-danger m-5" (click)="deleteData()">Reset Data</button>
 </div>
 
@@ -17,20 +15,34 @@
 
 <div
   class="card-group"
-  *ngIf="!productsService.dataMovie && !productsService.loading"
+  *ngIf="productsService.movies.length > 0 && !productsService.loading"
 >
-  <div class="card">
-    <img src="..." class="card-img-top" alt="..." />
-    <div class="card-body">
-      <h5 class="card-title">Please Load Data</h5>
-      <p class="card-text">
-        This is a wider card with supporting text below as a natural lead-in to
-        additional content. This card has even longer content than the first to
-        show that equal height action.
-      </p>
-      <p class="card-text">
-        <small class="text-muted">Last updated 3 mins ago</small>
-      </p>
+  <div class="row">
+    <div class="card col-3">
+      <!-- <img src="..." class="card-img-top" alt="..." /> -->
+      <div class="card-body">
+        <h5 class="card-title">Saved Movies List</h5>
+        <ul *ngFor="let list of productsService.movies">
+          <li>{{ list.Title }} [{{ list.Year }}]</li>
+        </ul>
+        <p class="card-text">
+          <small class="text-muted">movies saved into firebase</small>
+        </p>
+      </div>
+    </div>
+    <div class="card col-9">
+      <!-- <img src="..." class="card-img-top" alt="..." /> -->
+      <div class="card-body">
+        <h5 class="card-title">Movies by types</h5>
+        <p class="card-text">
+          This is a wider card with supporting text below as a natural lead-in
+          to additional content. This card has even longer content than the
+          first to show that equal height action.
+        </p>
+        <p class="card-text">
+          <small class="text-muted">movies saved into firebase</small>
+        </p>
+      </div>
     </div>
   </div>
 </div>
