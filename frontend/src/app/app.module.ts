@@ -23,6 +23,7 @@ import { ProductsService } from "./providers/products.service";
 import { ProductsComponent } from "./components/products/products.component";
 import { ProductComponent } from "./components/product/product.component";
 import { SearchComponent } from "./components/search/search.component";
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { SearchComponent } from "./components/search/search.component";
     BrowserAnimationsModule,
     NgxChartsModule,
     ReactiveFormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [ProductsService],
   bootstrap: [AppComponent],
