@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ProductsService } from "../../providers/products.service";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgxChartsModule } from "@swimlane/ngx-charts";
+import { colors } from "./../utils/utils.colors";
 
 @Component({
   selector: "app-products",
@@ -16,19 +17,20 @@ export class ProductsComponent implements OnInit {
   showLegend: boolean = true;
   showLabels: boolean = true;
   isDoughnut: boolean = false;
-  legendPosition: string = "below";
+  legendPosition: string = "right"; // below
   dataMov = [];
   single = [];
   colorScheme = {
-    domain: ["#5AA454", "#A10A28", "#C7B42C", "#AAAAAA", "#000000"],
+    // will be better using color generator
+    domain: colors,
   };
   constructor(public productsService: ProductsService) {}
   ngOnInit(): void {
     this.productsService.loadMovies().then((e) => {
       e.subscribe((data) => {
         data.map((movie) => {
-          let item;
-          let genre;
+          let item: any;
+          let genre: any;
           if (movie.Genre.includes(",")) {
             genre = movie.Genre.split(",")[0];
           } else {
@@ -67,15 +69,15 @@ export class ProductsComponent implements OnInit {
     this.productsService.addMovie(movie);
   }
 
-  onSelect(data): void {
+  onSelect(data: Object): void {
     console.log("Item clicked", JSON.parse(JSON.stringify(data)));
   }
 
-  onActivate(data): void {
+  onActivate(data: Object): void {
     console.log("Activate", JSON.parse(JSON.stringify(data)));
   }
 
-  onDeactivate(data): void {
+  onDeactivate(data: Object): void {
     console.log("Deactivate", JSON.parse(JSON.stringify(data)));
   }
 }
